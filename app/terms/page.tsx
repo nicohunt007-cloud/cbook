@@ -175,7 +175,7 @@ export default function TermsPage() {
                 <p>For questions about these Terms, please contact us at:</p>
                 <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
                   <p>
-                    <strong>Email:</strong> ockiyacliffc@gmail.com
+                    <strong>Email:</strong> nicolashunt@ettoile-lien.online
                   </p>
                   <p>
                     <strong>Response Time:</strong> Within 48 hours

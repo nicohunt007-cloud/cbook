@@ -199,7 +199,7 @@ export default function PrivacyPage() {
                 <p>If you have questions about this Privacy Policy or our data practices, please contact us:</p>
                 <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
                   <p>
-                    <strong>Email:</strong> ockiyacliffc@gmail.com
+                    <strong>Email:</strong> nicolashunt@ettoile-lien.online
                   </p>
                   <p>
                     <strong>Subject Line:</strong> Privacy Policy Inquiry

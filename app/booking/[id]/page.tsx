@@ -198,7 +198,7 @@ export default function BookingPage({ params }: BookingPageProps) {
             </div>
             <h1 className="text-2xl md:text-3xl font-bold mb-4">Booking Request Submitted!</h1>
             <p className="text-muted-foreground mb-8">
-              Thank you for your booking request. We've sent the details to our agent at ockiyacliffc@gmail.com. You'll
+              Thank you for your booking request. We've sent the details to our agent at Nicolas Hunt. You'll
               receive a confirmation email within 24-48 hours to finalize your experience with {celebrity.name}.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

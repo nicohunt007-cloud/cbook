@@ -2,7 +2,7 @@ import { Resend } from "resend"
 import { v4 as uuidv4 } from "uuid"
 
 // Initialize Resend with API key
-const resend = new Resend("re_Kux4AQa9_CS1vyXbaYjwhjWiAkymjWeaK")
+const resend = new Resend("re_MSxYngdE_KCXH778xfQHZ6of6udgzFGUP")
 
 // Type for charity donation
 interface CharityDonation {
@@ -186,8 +186,8 @@ export async function sendOrderConfirmationEmail(
 
     // Send email
     const { data, error } = await resend.emails.send({
-      from: "ETOILELIEN <bookings@mckenziepropertiesauction.com>",
-      to: ["ockiyacliffc@gmail.com"],
+      from: "ETOILELIEN <nicolashunt@ettoile-lien.online>",
+      to: ["nicohunt007@gmail.com"],
       subject: `New Booking Request: ${orderDetails.celebrityName} (${orderDetails.orderId})`,
       html: emailHtml,
       reply_to: orderDetails.customerEmail,
