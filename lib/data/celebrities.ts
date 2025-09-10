@@ -1438,6 +1438,19 @@ export const celebrities: Celebrity[] = [
     services: ["Personal Message", "Video Call", "Meet & Greet"],
     bio: "Known for her role as Joy Turner on the NBC sitcom My Name Is Earl",
   },
+   {
+    id: 107,
+    name: "Kamilla Cardoso",
+    category: "Basketball Player",
+    price: "$2,550",
+    rating: 3.8,
+    reviews: 77,
+    image: "https://media.gettyimages.com/id/2123605650/nl/foto/albany-new-york-kamilla-cardoso-of-the-south-carolina-gamecocks-prepares-to-take-a-free-throw.jpg?s=612x612&w=0&k=20&c=mTdwaRQM2_tcm1xLPderJFyhBeimwjMevlOrjBbtufo=",
+    availability: "Available",
+    tier: "Elite",
+    services: ["Personal Message", "Video Call", "Basketball Training", "Membership Card"],
+    bio: "She won two national championships with South Carolina in 2022 and 2024, and was named NCAA Tournament MOP in 2024.",
+  },
 ]
 
 export function getCelebrityById(id: number): Celebrity | undefined {

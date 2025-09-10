@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import { useParams } from "next/navigation"
 
 import { useState, useCallback } from "react"
 import { Button } from "@/components/ui/button"
@@ -26,13 +26,9 @@ import { generateOrderId, type OrderDetails } from "@/lib/email-service"
 import { getCelebrityNFTsByCelebrityId } from "@/lib/data/celebrity-nfts"
 import { CelebrityNFTCard } from "@/components/nft/celebrity-nft-card"
 
-interface BookingPageProps {
-  params: {
-    id: string
-  }
-}
+// Removed BookingPageProps, using useParams instead
 
-export default function BookingPage({ params }: BookingPageProps) {
+export default function BookingPage() {
   const [selectedServices, setSelectedServices] = useState<string[]>([])
   const [paymentMethod, setPaymentMethod] = useState("card")
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -51,8 +47,10 @@ export default function BookingPage({ params }: BookingPageProps) {
     message: "",
   })
 
+  // Get params using useParams from next/navigation
+  const params = useParams<{ id: string }>()
   const celebrity = getCelebrityById(Number.parseInt(params.id))
-
+  
   if (!celebrity) {
     notFound()
   }
@@ -115,12 +113,11 @@ export default function BookingPage({ params }: BookingPageProps) {
   const handleFormChange = useCallback((field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }, [])
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (
-      selectedServices.length === 0 ||
+      selectedServices.length === 0 || 
       !formData.firstName ||
       !formData.lastName ||
       !formData.email ||
@@ -190,7 +187,7 @@ export default function BookingPage({ params }: BookingPageProps) {
   if (isSubmitted) {
     return (
       <PageWrapper>
-        <Header />
+        <Header />  
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-2xl mx-auto text-center">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -239,7 +236,7 @@ export default function BookingPage({ params }: BookingPageProps) {
                 {celebrity.name}
               </Link>
               {" > "}
-              <span className="text-orange-500">Book Experience</span>
+              <span className="text-orange-500"> Book Experience </span>
             </nav>
           </div>
 
