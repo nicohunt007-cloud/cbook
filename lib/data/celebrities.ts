@@ -1,3 +1,31 @@
+export type MembershipCard = {
+  type: "Gold" | "Platinum" | "Exclusive";
+  price: number;
+  description: string;
+  benefits: string[];
+};
+
+export type MembershipPricing = {
+  [tier: string]: MembershipCard[];
+};
+
+export const membershipPricing: MembershipPricing = {
+  Premium: [
+    { type: "Gold", price: 250, description: "Gold Membership", benefits: ["Access to exclusive content"] },
+    { type: "Platinum", price: 750, description: "Platinum Membership", benefits: ["All Gold benefits", "Priority event invitations"] },
+    { type: "Exclusive", price: 1250, description: "Exclusive Membership", benefits: ["All Platinum benefits", "Special fan bonuses"] },
+  ],
+  VIP: [
+    { type: "Gold", price: 350, description: "Gold Membership", benefits: ["Access to exclusive content"] },
+    { type: "Platinum", price: 1050, description: "Platinum Membership", benefits: ["All Gold benefits", "Priority event invitations"] },
+    { type: "Exclusive", price: 1850, description: "Exclusive Membership", benefits: ["All Platinum benefits", "Special fan bonuses"] },
+  ],
+  Elite: [
+    { type: "Gold", price: 550, description: "Gold Membership", benefits: ["Access to exclusive content"] },
+    { type: "Platinum", price: 1550, description: "Platinum Membership", benefits: ["All Gold benefits", "Priority event invitations"] },
+    { type: "Exclusive", price: 2550, description: "Exclusive Membership", benefits: ["All Platinum benefits", "Invite celebrity to dinner/holiday", "Special fan bonuses"] },
+  ],
+};
 import type { Celebrity } from "@/components/celebrities/celebrity-card"
 
 export const celebrities: Celebrity[] = [
@@ -1450,6 +1478,19 @@ export const celebrities: Celebrity[] = [
     tier: "Elite",
     services: ["Personal Message", "Video Call", "Basketball Training", "Membership Card"],
     bio: "She won two national championships with South Carolina in 2022 and 2024, and was named NCAA Tournament MOP in 2024.",
+  },
+  {
+    id: 108,
+    name: "Todd Sucherman",
+    category: "American drummer",
+    price: "$2,550",
+    rating: 3.8,
+    reviews: 77,
+    image: "https://media.gettyimages.com/id/923991350/ja/%E3%82%B9%E3%83%88%E3%83%83%E3%82%AF%E3%83%95%E3%82%A9%E3%83%88/pala-ca-musician-todd-sucherman-of-styx-performs-on-stage-at-pala-casino-resort-and-spa-on.jpg?s=612x612&w=0&k=20&c=HAGt4Bj9xU0U64T2TdJBx7dixbQXlluJIkeCYPBILfE=",
+    availability: "Available",
+    tier: "Elite",
+    services: ["Personal Message", "Video Call", "Basketball Training", "Membership Card"],
+    bio: "He has been the drummer for the rock band Styx since 1995 and is known for his technical proficiency and versatility.",
   },
 ]
 

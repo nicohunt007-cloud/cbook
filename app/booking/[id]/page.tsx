@@ -3,9 +3,11 @@
 import { useParams } from "next/navigation"
 
 import { useState, useCallback } from "react"
+import { membershipPricing, MembershipCard } from "@/lib/data/celebrities"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -295,137 +297,132 @@ export default function BookingPage() {
 
                     <Separator />
 
-                    {/* Personal Information */}
-                    <div className="space-y-4">
-                      <Label className="text-lg font-semibold">Personal Information</Label>
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="firstName">First Name *</Label>
-                          <Input
-                            id="firstName"
-                            placeholder="John"
-                            required
-                            value={formData.firstName}
-                            onChange={(e) => handleFormChange("firstName", e.target.value)}
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="lastName">Last Name *</Label>
-                          <Input
-                            id="lastName"
-                            placeholder="Doe"
-                            required
-                            value={formData.lastName}
-                            onChange={(e) => handleFormChange("lastName", e.target.value)}
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email *</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="john@example.com"
-                          required
-                          value={formData.email}
-                          onChange={(e) => handleFormChange("email", e.target.value)}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">Phone Number</Label>
-                        <Input
-                          id="phone"
-                          type="tel"
-                          placeholder="+1 (555) 123-4567"
-                          value={formData.phone}
-                          onChange={(e) => handleFormChange("phone", e.target.value)}
-                        />
-                      </div>
-                    </div>
-
-                    <Separator />
-
-                    {/* Booking Details */}
                     <div className="space-y-4">
                       <Label className="text-lg font-semibold">Booking Details</Label>
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="date">Preferred Date *</Label>
-                          <Input
-                            id="date"
-                            type="date"
-                            required
-                            value={formData.date}
-                            onChange={(e) => handleFormChange("date", e.target.value)}
-                          />
+                      <div className="grid gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="firstName">First Name *</Label>
+                            <Input
+                              id="firstName"
+                              placeholder="Enter your first name"
+                              value={formData.firstName}
+                              onChange={(e) => handleFormChange("firstName", e.target.value)}
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="lastName">Last Name *</Label>
+                            <Input
+                              id="lastName"
+                              placeholder="Enter your last name"
+                              value={formData.lastName}
+                              onChange={(e) => handleFormChange("lastName", e.target.value)}
+                            />
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="email">Email *</Label>
+                            <Input
+                              id="email"
+                              type="email"
+                              placeholder="Enter your email"
+                              value={formData.email}
+                              onChange={(e) => handleFormChange("email", e.target.value)}
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="phone">Phone Number</Label>
+                            <Input
+                              id="phone"
+                              placeholder="Enter your phone number"
+                              value={formData.phone}
+                              onChange={(e) => handleFormChange("phone", e.target.value)}
+                            />
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="date">Preferred Date *</Label>
+                            <Input
+                              id="date"
+                              type="date"
+                              placeholder="Select a date"
+                              value={formData.date}
+                              onChange={(e) => handleFormChange("date", e.target.value)}
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="time">Preferred Time *</Label>
+                            <Select
+                              value={formData.time}
+                              onValueChange={(value) => handleFormChange("time", value)}
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select a time" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="morning">Morning (9AM - 12PM)</SelectItem>
+                                <SelectItem value="afternoon">Afternoon (12PM - 5PM)</SelectItem>
+                                <SelectItem value="evening">Evening (5PM - 8PM)</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="time">Preferred Time</Label>
-                          <Select value={formData.time} onValueChange={(value) => handleFormChange("time", value)}>
+                          <Label htmlFor="occasion">Occasion (Optional)</Label>
+                          <Select
+                            value={formData.occasion}
+                            onValueChange={(value) => handleFormChange("occasion", value)}
+                          >
                             <SelectTrigger>
-                              <SelectValue placeholder="Select time" />
+                              <SelectValue placeholder="Select occasion" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="morning">Morning (9AM - 12PM)</SelectItem>
-                              <SelectItem value="afternoon">Afternoon (12PM - 5PM)</SelectItem>
-                              <SelectItem value="evening">Evening (5PM - 8PM)</SelectItem>
+                              <SelectItem value="birthday">Birthday</SelectItem>
+                              <SelectItem value="anniversary">Anniversary</SelectItem>
+                              <SelectItem value="graduation">Graduation</SelectItem>
+                              <SelectItem value="wedding">Wedding</SelectItem>
+                              <SelectItem value="other">Other</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="message">Special Message/Instructions</Label>
+                          <Textarea
+                            id="message"
+                            placeholder="Tell us about your request, any special instructions, or what you'd like the celebrity to mention..."
+                            rows={4}
+                            value={formData.message}
+                            onChange={(e) => handleFormChange("message", e.target.value)}
+                          />
+                        </div>
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="occasion">Occasion (Optional)</Label>
-                        <Select
-                          value={formData.occasion}
-                          onValueChange={(value) => handleFormChange("occasion", value)}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select occasion" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="birthday">Birthday</SelectItem>
-                            <SelectItem value="anniversary">Anniversary</SelectItem>
-                            <SelectItem value="graduation">Graduation</SelectItem>
-                            <SelectItem value="wedding">Wedding</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="message">Special Message/Instructions</Label>
-                        <Textarea
-                          id="message"
-                          placeholder="Tell us about your request, any special instructions, or what you'd like the celebrity to mention..."
-                          rows={4}
-                          value={formData.message}
-                          onChange={(e) => handleFormChange("message", e.target.value)}
-                        />
-                      </div>
+
+                      <Separator />
+
+                      {/* Payment Methods */}
+                      <PaymentMethods onMethodChange={setPaymentMethod} />
+
+                      <Separator />
+
+                      {/* Charity Donation */}
+                      <CharityDonation
+                        onDonationComplete={(amount, charity) => {
+                          setDonationAmount(amount)
+                          setDonationCharity(charity)
+                        }}
+                      />
+
+                      <Button
+                        type="submit"
+                        className="w-full bg-orange-500 text-white hover:bg-orange-600 text-lg py-6 font-medium"
+                        disabled={selectedServices.length === 0 || isSubmitting}
+                      >
+                        {isSubmitting ? "Processing..." : "Complete Booking"}
+                      </Button>
                     </div>
-
-                    <Separator />
-
-                    {/* Payment Methods */}
-                    <PaymentMethods onMethodChange={setPaymentMethod} />
-
-                    <Separator />
-
-                    {/* Charity Donation */}
-                    <CharityDonation
-                      onDonationComplete={(amount, charity) => {
-                        setDonationAmount(amount)
-                        setDonationCharity(charity)
-                      }}
-                    />
-
-                    <Button
-                      type="submit"
-                      className="w-full bg-orange-500 text-white hover:bg-orange-600 text-lg py-6 font-medium"
-                      disabled={selectedServices.length === 0 || isSubmitting}
-                    >
-                      {isSubmitting ? "Processing..." : "Complete Booking"}
-                    </Button>
-                  </form>
+                    </form>
                 </CardContent>
               </Card>
             </div>
@@ -567,4 +564,117 @@ export default function BookingPage() {
       <Footer />
     </PageWrapper>
   )
+}
+
+// Membership Modal Content Component
+// (Removed duplicate useState import)
+function MembershipModalContent({ celebrityTier, celebrityName }: { celebrityTier: string, celebrityName: string }) {
+  const membershipOptions: MembershipCard[] = membershipPricing[celebrityTier] || [];
+  const [selectedMembership, setSelectedMembership] = useState<MembershipCard | null>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    paymentMethod: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!selectedMembership || !formData.name || !formData.email || !formData.paymentMethod) return;
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/send-membership", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          celebrityName,
+          membershipType: selectedMembership.type,
+          membershipPrice: selectedMembership.price,
+          name: formData.name,
+          email: formData.email,
+          paymentMethod: formData.paymentMethod,
+        }),
+      });
+      if (res.ok) {
+        setIsSubmitted(true);
+      } else {
+        alert("Failed to submit membership request.");
+      }
+    } catch (err) {
+      alert("Error submitting membership request.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  if (isSubmitted) {
+    return (
+      <div className="text-center py-8">
+        <h3 className="text-lg font-bold mb-2">Membership Request Submitted!</h3>
+        <p className="text-muted-foreground mb-4">Thank you. We'll contact you soon to finalize your membership.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div className="mb-4">
+        <div className="flex flex-col gap-2">
+          {membershipOptions.map((option: MembershipCard) => (
+            <Button
+              key={option.type}
+              variant={selectedMembership?.type === option.type ? "default" : "outline"}
+              className="w-full justify-between"
+              onClick={() => setSelectedMembership(option)}
+            >
+              <span>{option.type} - ${option.price}</span>
+              <span className="text-xs text-muted-foreground">{option.description}</span>
+            </Button>
+          ))}
+        </div>
+        {selectedMembership && (
+          <ul className="mt-2 text-sm text-muted-foreground list-disc ml-4">
+            {selectedMembership.benefits.map((b: string, i: number) => (
+              <li key={i}>{b}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Your Name"
+          value={formData.name}
+          onChange={e => setFormData({ ...formData, name: e.target.value })}
+          className="border rounded px-3 py-2"
+          required
+        />
+        <input
+          type="email"
+          placeholder="Your Email"
+          value={formData.email}
+          onChange={e => setFormData({ ...formData, email: e.target.value })}
+          className="border rounded px-3 py-2"
+          required
+        />
+        <select
+          value={formData.paymentMethod}
+          onChange={e => setFormData({ ...formData, paymentMethod: e.target.value })}
+          className="border rounded px-3 py-2"
+          required
+        >
+          <option value="">Select Payment Method</option>
+          <option value="card">Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="crypto">Crypto</option>
+        </select>
+        <DialogFooter>
+          <Button type="submit" disabled={!selectedMembership || !formData.name || !formData.email || !formData.paymentMethod || isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Submit Membership Request"}
+          </Button>
+        </DialogFooter>
+      </form>
+    </div>
+  );
 }

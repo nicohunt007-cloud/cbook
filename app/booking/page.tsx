@@ -9,6 +9,8 @@ import { Separator } from "@/components/ui/separator"
 import { Clock, Star, Shield, CreditCard, Crown } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
+import { useState } from "react"
 
 export default function BookingPage() {
   const celebrity = {
@@ -241,6 +243,10 @@ export default function BookingPage() {
                       </div>
                     </div>
                   </div>
+                  {/* Get Membership Button & Modal */}
+                  <div className="mt-6 text-center">
+                    <MembershipModal celebrityTier={celebrity.tier} celebrityName={celebrity.name} />
+                  </div>
                 </CardContent>
               </Card>
 
@@ -332,4 +338,168 @@ export default function BookingPage() {
       </div>
     </div>
   )
+}
+
+// MembershipModal component
+function MembershipModal({ celebrityTier, celebrityName }: { celebrityTier: string, celebrityName: string }) {
+  type MembershipOption = {
+    type: string;
+    price: number;
+    description: string;
+    benefits: string[];
+  };
+  type MembershipOptionsMap = {
+    [key: string]: MembershipOption[];
+    Premium: MembershipOption[];
+    VIP: MembershipOption[];
+    Elite: MembershipOption[];
+  };
+  const membershipOptions: MembershipOptionsMap = {
+    Premium: [
+      { type: "Gold", price: 250, description: "Gold Membership", benefits: ["Access to exclusive content"] },
+      { type: "Platinum", price: 750, description: "Platinum Membership", benefits: ["All Gold benefits", "Priority event invitations"] },
+      { type: "Exclusive", price: 1250, description: "Exclusive Membership", benefits: ["All Platinum benefits", "Special fan bonuses"] },
+    ],
+    VIP: [
+      { type: "Gold", price: 350, description: "Gold Membership", benefits: ["Access to exclusive content"] },
+      { type: "Platinum", price: 1050, description: "Platinum Membership", benefits: ["All Gold benefits", "Priority event invitations"] },
+      { type: "Exclusive", price: 1850, description: "Exclusive Membership", benefits: ["All Platinum benefits", "Special fan bonuses"] },
+    ],
+    Elite: [
+      { type: "Gold", price: 550, description: "Gold Membership", benefits: ["Access to exclusive content"] },
+      { type: "Platinum", price: 1550, description: "Platinum Membership", benefits: ["All Gold benefits", "Priority event invitations"] },
+      { type: "Exclusive", price: 2550, description: "Exclusive Membership", benefits: ["All Platinum benefits", "Invite celebrity to dinner/holiday", "Special fan bonuses"] },
+    ],
+  };
+  const options: MembershipOption[] = membershipOptions[celebrityTier] || [];
+  const [selectedMembership, setSelectedMembership] = useState<MembershipOption | null>(null);
+  const [formData, setFormData] = useState<{ name: string; email: string; paymentMethod: string }>({ name: "", email: "", paymentMethod: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!selectedMembership || !formData.name || !formData.email || !formData.paymentMethod) return;
+    setIsSubmitting(true);
+    setIsSubmitted(false);
+    try {
+      // Build OrderDetails payload
+      const orderPayload = {
+        orderId: `ORD-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
+        orderDate: new Date().toISOString(),
+        customerName: formData.name,
+        customerEmail: formData.email,
+        celebrityName,
+        celebrityId: 0, // If you have the ID, pass it here
+        services: [
+          {
+            name: `${selectedMembership.type} Membership`,
+            price: selectedMembership.price,
+            duration: "1 Year",
+          },
+        ],
+        totalServicePrice: selectedMembership.price,
+        preferredDate: new Date().toISOString(),
+        paymentMethod: formData.paymentMethod,
+        platformFee: Math.round(selectedMembership.price * 0.05),
+        processingFee: 10,
+        totalAmount: selectedMembership.price + Math.round(selectedMembership.price * 0.05) + 10,
+      };
+      const res = await fetch("/api/send-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderPayload),
+      });
+      if (res.ok) {
+        setIsSubmitted(true);
+      } else {
+        const error = await res.json();
+        alert(error.error || "Failed to submit membership request.");
+      }
+    } catch (err) {
+      alert("Submission failed. Please try again.");
+    }
+    setIsSubmitting(false);
+  }
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button className="bg-yellow-400 text-black hover:bg-yellow-300 w-full">Get Membership</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Get a Fan Membership Card for {celebrityName}</DialogTitle>
+          <DialogDescription>
+            Select a membership type and fill in your details below.
+          </DialogDescription>
+        </DialogHeader>
+        {isSubmitted ? (
+          <div className="text-center py-8">
+            <h3 className="text-lg font-bold mb-2">Membership Request Submitted!</h3>
+            <p className="text-muted-foreground mb-4">Thank you. We'll contact you soon to finalize your membership.</p>
+          </div>
+        ) : (
+          <>
+            <div className="mb-4">
+              <div className="flex flex-col gap-2">
+                {options.map((option: MembershipOption) => (
+                  <Button
+                    key={option.type}
+                    variant={selectedMembership?.type === option.type ? "default" : "outline"}
+                    className="w-full justify-between"
+                    onClick={() => setSelectedMembership(option)}
+                  >
+                    <span>{option.type} - ${option.price}</span>
+                    <span className="text-xs text-muted-foreground">{option.description}</span>
+                  </Button>
+                ))}
+              </div>
+              {selectedMembership && (
+                <ul className="mt-2 text-sm text-muted-foreground list-disc ml-4">
+                  {selectedMembership.benefits.map((b: string, i: number) => (
+                    <li key={i}>{b}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Your Name"
+                value={formData.name}
+                onChange={e => setFormData({ ...formData, name: e.target.value })}
+                className="border rounded px-3 py-2"
+                required
+              />
+              <input
+                type="email"
+                placeholder="Your Email"
+                value={formData.email}
+                onChange={e => setFormData({ ...formData, email: e.target.value })}
+                className="border rounded px-3 py-2"
+                required
+              />
+              <select
+                value={formData.paymentMethod}
+                onChange={e => setFormData({ ...formData, paymentMethod: e.target.value })}
+                className="border rounded px-3 py-2"
+                required
+              >
+                <option value="">Select Payment Method</option>
+                <option value="card">Card</option>
+                <option value="paypal">PayPal</option>
+                <option value="crypto">Crypto</option>
+              </select>
+              <DialogFooter>
+                <Button type="submit" disabled={!selectedMembership || !formData.name || !formData.email || !formData.paymentMethod || isSubmitting}>
+                  {isSubmitting ? "Submitting..." : "Submit Membership Request"}
+                </Button>
+              </DialogFooter>
+            </form>
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
 }
