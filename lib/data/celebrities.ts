@@ -1530,7 +1530,20 @@ export const celebrities: Celebrity[] = [
     tier: "Elite",
     services: ["Personal Message", "Video Call", "Membership Card", "Social Media Tips"],
     bio: "He is known for his comedic skits, lip-sync videos, and collaborations with other popular TikTok creators.",
-  }
+  },
+  {
+    id: 112,
+    name: "Chen Azn Jing",
+    category: "Adult Actress",
+    price: "$6,000",
+    rating: 4.8,
+    reviews: 145,
+    image: "https://ik.imagekit.io/y6cdhyax5/chen_square_n4N9ac1f2?updatedAt=1758900449018",
+    availability: "Available",
+    tier: "Premium",
+    services: ["Personal Message", "Video Call", "Meet & Greet", "Private Show", "Custom Content"],
+    bio: "Adult film actress and model known for her work in the adult entertainment industry",
+  },
 ]
 
 export function getCelebrityById(id: number): Celebrity | undefined {
