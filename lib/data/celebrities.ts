@@ -1544,6 +1544,19 @@ export const celebrities: Celebrity[] = [
     services: ["Personal Message", "Video Call", "Meet & Greet", "Private Show", "Custom Content"],
     bio: "Adult film actress and model known for her work in the adult entertainment industry",
   },
+  {
+    id: 113,
+    name: "Jelly Roll",
+    category: "American rapper and singer",
+    price: "$6,000",
+    rating: 4.8,
+    reviews: 145,
+    image: "https://media.gettyimages.com/id/2161925710/photo/santa-monica-california-jelly-roll-attends-nickelodeon-kids-choice-awards-2024-at-barker.jpg?s=612x612&w=0&k=20&c=1TW-iDZm_sW1llAhH8uTBA5yFuPuy2JiEsuwYiy2-Fs=",
+    availability: "Available",
+    tier: "Elite",
+    services: ["Personal Message", "Video Call", "Meet & Greet", "Private Show", "Custom Content"],
+    bio: "He is known for his introspective lyrics and blending of hip-hop, rock, and country music",
+  },
 ]
 
 export function getCelebrityById(id: number): Celebrity | undefined {
