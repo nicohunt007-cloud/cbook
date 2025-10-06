@@ -1554,8 +1554,21 @@ export const celebrities: Celebrity[] = [
     image: "https://media.gettyimages.com/id/2161925710/photo/santa-monica-california-jelly-roll-attends-nickelodeon-kids-choice-awards-2024-at-barker.jpg?s=612x612&w=0&k=20&c=1TW-iDZm_sW1llAhH8uTBA5yFuPuy2JiEsuwYiy2-Fs=",
     availability: "Available",
     tier: "Elite",
-    services: ["Personal Message", "Video Call", "Meet & Greet",  "Membership Card", "Private Show", "Custom Content"],
+    services: ["Video Call", "Meet & Greet",  "Membership Card", "Private Show", "Custom Content", "Buy Private Pictures"],
     bio: "He is known for his introspective lyrics and blending of hip-hop, rock, and country music",
+  },
+  {
+    id: 114,
+    name: "Elli Cassidy",
+    category: "Adult Actress",
+    price: "$1,500",
+    rating: 4.8,
+    reviews: 225,
+    image: "https://ik.imagekit.io/y6cdhyax5/image.png?updatedAt=1759766646293",
+    availability: "Available",
+    tier: "Premium",
+    services: ["Personal Message", "Video Call", "Meet & Greet",  "Membership Card", "Private Show", "Custom Content", "Escort"],
+    bio: "Special adult film actress and model known for her work in the adult entertainment industry",
   },
 ]
 
