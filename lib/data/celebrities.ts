@@ -1570,6 +1570,19 @@ export const celebrities: Celebrity[] = [
     services: ["Personal Message", "Video Call", "Meet & Greet",  "Membership Card", "Private Show", "Custom Content", "Escort"],
     bio: "Special adult film actress and model known for her work in the adult entertainment industry",
   },
+  {
+    id: 115,
+    name: "Andie Anderson",
+    category: "Adult Actress",
+    price: "$1,500",
+    rating: 4.8,
+    reviews: 225,
+    image: "https://media.gettyimages.com/id/2196025618/nl/foto/las-vegas-nevada-andie-anderson-attends-the-2025-adult-video-news-awards-at-the-theater-at.jpg?s=612x612&w=0&k=20&c=6SeVxOuGoZHYGl3symX3wkaGJOV_B8lC73qyo27yFz8=",
+    availability: "Available",
+    tier: "Elite",
+    services: ["Personal Message", "Video Call", "Meet & Greet",  "Membership Card", "Private Show", "Custom Content", "Escort"],
+    bio: "She has appeared in various TV series, including Andie The Milker"
+  },
 ]
 
 export function getCelebrityById(id: number): Celebrity | undefined {
