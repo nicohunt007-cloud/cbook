@@ -1583,6 +1583,19 @@ export const celebrities: Celebrity[] = [
     services: ["Personal Message", "Video Call", "Meet & Greet",  "Membership Card", "Private Show", "Custom Content", "Escort"],
     bio: "She has appeared in various TV series, including Andie The Milker"
   },
+  {
+    id: 116,
+    name: "Sonia Chris",
+    category: "Adult Content Creator",
+    price: "$1,500",
+    rating: 4.8,
+    reviews: 225,
+    image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.explicit.bing.net%2Fth%2Fid%2FOIP.d391nmTFnc_WfKTmMVIeXQHaJ4%3Fcb%3D12%26pid%3DApi&f=1&ipt=5c60ad4cc387fc5ae008adc80f9b721e333021ad95cb0c06db008ca9e56b7e0d",
+    availability: "Available",
+    tier: "Elite",
+    services: ["Personal Message", "Video Call", "Meet & Greet",  "Membership Card", "Private Show", "Custom Content", "Escort"],
+    bio: "Adult content creator known for her work on various adult platforms",
+  },
 ]
 
 export function getCelebrityById(id: number): Celebrity | undefined {
