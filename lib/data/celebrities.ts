@@ -1597,7 +1597,7 @@ export const celebrities: Celebrity[] = [
     bio: "Adult content creator known for her work on various adult platforms",
   },
   {
-    id: 116,
+    id: 117,
     name: "keanu reeves",
     category: "American Actor",
     price: "$3,500",
