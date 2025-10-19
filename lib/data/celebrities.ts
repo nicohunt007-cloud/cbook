@@ -1596,6 +1596,19 @@ export const celebrities: Celebrity[] = [
     services: ["Personal Message", "Video Call", "Meet & Greet",  "Membership Card", "Private Show", "Custom Content", "Escort"],
     bio: "Adult content creator known for her work on various adult platforms",
   },
+  {
+    id: 116,
+    name: "keanu reeves",
+    category: "American Actor",
+    price: "$3,500",
+    rating: 4.8,
+    reviews: 225,
+    image: "https://media.gettyimages.com/id/2190359763/photo/hollywood-california-keanu-reeves-attends-the-los-angeles-premiere-of-paramounts-sonic-the.jpg?s=612x612&w=0&k=20&c=xb75ha6vCpdmLr_wMw1ZXQ7guFvRPznNrW-FLs020kU=",
+    availability: "Available",
+    tier: "VIP",
+    services: ["Personal Message", "Video Call", "Meet & Greet",  "Membership Card"],
+    bio: "Canadian actor known for his roles in The Matrix, John Wick, and Speed",
+  },
 ]
 
 export function getCelebrityById(id: number): Celebrity | undefined {
